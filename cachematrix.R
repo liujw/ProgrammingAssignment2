@@ -72,29 +72,3 @@ cacheSolve <- function(m, ...) {
   m$setinverse(inv)
   inv    
 }
-
-## Test function to exercise above code.  Would be better written as a unit test
-## using RUnit.
-## A matrix multiplied by it's inverse will equal the identity matrix.
-## 
-## for a 2x2 matrix this will look like
-## getting cached data
-##       [,1] [,2]
-## [1,]    1    0
-## [2,]    0    1
-
-test <- function() 
-{
-  amatrix = makeCacheMatrix(matrix(c(1,2,3,4), nrow=2, ncol=2))
-  amatrix$get()         # Returns original matrix
-  cacheSolve(amatrix)   # Computes, caches, and returns    matrix inverse
-  amatrix$getinverse()  # Returns matrix inverse
-  cacheSolve(amatrix)   # Returns cached matrix inverse using previously computed matrix inverse
-  
-  amatrix$set(matrix(c(0,5,99,66), nrow=2, ncol=2)) # Modify existing matrix
-  cacheSolve(amatrix)   # Computes, caches, and returns new matrix inverse
-  amatrix$get()         # Returns matrix
-  amatrix$getinverse()  # Returns matrix inverse    
-  
-  amatrix$get() %*% amatrix$getinverse() # returns the identity matrix
-}
